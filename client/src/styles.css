@@ -64,3 +64,5 @@ th { color: var(--muted); font-weight: 600; font-size: .9rem; }
 .actions { display: flex; gap: .4rem; justify-content: flex-end; }
 
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+.pw-field { display: flex; gap: .5rem; }
+.pw-toggle { white-space: nowrap; }

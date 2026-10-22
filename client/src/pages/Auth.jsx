@@ -9,6 +9,9 @@ function AuthForm({ mode }) {
   const [form, setForm] = useState({ name: '', email: '', password: '', familyIncome: '' });
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState(false);
+const [showPw, setShowPw] = useState(false);   // <- add this line
+const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
   const submit = async (e) => {
@@ -37,8 +40,13 @@ function AuthForm({ mode }) {
         <input type="email" value={form.email} onChange={set('email')} required />
       </label>
       <label>Password
-        <input type="password" minLength={6} value={form.password} onChange={set('password')} required />
-      </label>
+  <div className="pw-field">
+    <input type={showPw ? 'text' : 'password'} minLength={6} value={form.password} onChange={set('password')} required />
+    <button type="button" className="btn ghost pw-toggle" onClick={() => setShowPw(!showPw)} aria-pressed={showPw}>
+      {showPw ? 'Hide' : 'Show'}
+    </button>
+  </div>
+</label>
       {isRegister && (
         <label>Annual family income
           <input type="number" min="0" value={form.familyIncome} onChange={set('familyIncome')} required />
