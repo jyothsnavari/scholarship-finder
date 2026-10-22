@@ -19,8 +19,7 @@ export function AuthProvider({ children }) {
       .finally(() => setLoading(false));
   }, []);
 
-  const authenticate = async (path, body) => {
-    const d = await api(path, { method: 'POST', body });
+  const startSession = (d) => {
     localStorage.setItem('token', d.token);
     setUser(d.user);
     return d.user;
@@ -30,8 +29,13 @@ export function AuthProvider({ children }) {
     user,
     setUser,
     loading,
-    login: (body) => authenticate('/auth/login', body),
-    register: (body) => authenticate('/auth/register', body),
+    login: async (body) => startSession(await api('/auth/login', { method: 'POST', body })),
+    // Returns the API response: either a session (token) or { needsVerification: true }
+    register: async (body) => {
+      const d = await api('/auth/register', { method: 'POST', body });
+      if (d.token) startSession(d);
+      return d;
+    },
     logout: () => {
       localStorage.removeItem('token');
       setUser(null);
