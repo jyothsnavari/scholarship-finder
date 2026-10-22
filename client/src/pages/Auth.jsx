@@ -9,10 +9,9 @@ function AuthForm({ mode }) {
   const [form, setForm] = useState({ name: '', email: '', password: '', familyIncome: '' });
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
-  const [busy, setBusy] = useState(false);
 const [showPw, setShowPw] = useState(false);   // <- add this line
 const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
-  const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+  
 
   const submit = async (e) => {
     e.preventDefault();
